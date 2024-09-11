@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "947097211718",
+    "firebase_url": "https://project24-d4cc2-default-rtdb.firebaseio.com",
+    "project_id": "project24-d4cc2",
+    "storage_bucket": "project24-d4cc2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947097211718:android:ef77902702254301798b47",
+        "android_client_info": {
+          "package_name": "com.example.project24"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiqhYHujzsS_KDEnaUPm-Vv71d-CnapQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
