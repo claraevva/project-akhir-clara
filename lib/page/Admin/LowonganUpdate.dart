@@ -14,7 +14,7 @@ class LowonganUpdate extends StatefulWidget {
   final String email;
   final String tanggalExpired;
   final String catatan;
-  final String whatsapp; // Tambahkan catatan
+  final String whatsapp;
 
   LowonganUpdate({
     required this.keyLowongan,
@@ -27,7 +27,7 @@ class LowonganUpdate extends StatefulWidget {
     required this.email,
     required this.tanggalExpired,
     required this.catatan,
-    required this.whatsapp, // Tambahkan catatan
+    required this.whatsapp,
   });
 
   @override
@@ -48,10 +48,9 @@ class _LowonganUpdateState extends State<LowonganUpdate> {
   late TextEditingController _emailController;
   late TextEditingController _alamatKantorController;
   late TextEditingController _tanggalExpiredController;
-  late TextEditingController
-      _catatanController; // Tambahkan TextEditingController untuk catatan
-  late String _selectedCategory;
+  late TextEditingController _catatanController;
   late TextEditingController _whatsappController;
+  late String _selectedCategory;
 
   @override
   void initState() {
@@ -70,47 +69,37 @@ class _LowonganUpdateState extends State<LowonganUpdate> {
   }
 
   void _updateLowongan() {
-    if (_validateForm()) {
-      _database.child(widget.keyLowongan).update({
-        'kategori': _selectedCategory,
-        'namaKantor': _namaKantorController.text,
-        'posisi': _posisiController.text,
-        'kualifikasi': _kualifikasiController.text,
-        'persyaratan': _persyaratanController.text,
-        'email': _emailController.text,
-        'alamatKantor': _alamatKantorController.text,
-        'tanggalExpired': _tanggalExpiredController.text,
-        'catatan': _catatanController.text,
-        'whatsapp': _whatsappController.text, // Update catatan
-      }).then((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Data berhasil diperbarui')),
-        );
-        Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal memperbarui data: $error')),
-        );
-      });
-    }
-  }
+    final Map<String, dynamic> updateData = {
+      'kategori': _selectedCategory,
+      'namaKantor': _namaKantorController.text,
+      'posisi': _posisiController.text,
+      'kualifikasi': _kualifikasiController.text,
+      'persyaratan': _persyaratanController.text,
+      'tanggalExpired': _tanggalExpiredController.text,
+      'catatan': _catatanController.text,
+    };
 
-  bool _validateForm() {
-    if (_namaKantorController.text.isEmpty ||
-        _posisiController.text.isEmpty ||
-        _kualifikasiController.text.isEmpty ||
-        _persyaratanController.text.isEmpty ||
-        _emailController.text.isEmpty ||
-        _alamatKantorController.text.isEmpty ||
-        _tanggalExpiredController.text.isEmpty ||
-        _catatanController.text.isEmpty ||
-        _whatsappController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Silakan lengkapi semua field')),
-      );
-      return false;
+    // Update hanya jika field tidak kosong
+    if (_emailController.text.isNotEmpty) {
+      updateData['email'] = _emailController.text;
     }
-    return true;
+    if (_alamatKantorController.text.isNotEmpty) {
+      updateData['alamatKantor'] = _alamatKantorController.text;
+    }
+    if (_whatsappController.text.isNotEmpty) {
+      updateData['whatsapp'] = _whatsappController.text;
+    }
+
+    _database.child(widget.keyLowongan).update(updateData).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Data berhasil diperbarui')),
+      );
+      Navigator.of(context).pop(); // Kembali ke halaman sebelumnya
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal memperbarui data: $error')),
+      );
+    });
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -210,7 +199,7 @@ class _LowonganUpdateState extends State<LowonganUpdate> {
             ),
             SizedBox(height: 10),
             TextFormField(
-              controller: _catatanController, // Tambahkan field catatan
+              controller: _catatanController,
               decoration: InputDecoration(labelText: 'Catatan'),
               maxLines: 5,
             ),

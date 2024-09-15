@@ -193,16 +193,20 @@ class _TambahLowonganState extends State<TambahLowongan> {
               SizedBox(height: 10),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email Kantor'),
-                validator: (value) =>
-                    value?.isEmpty ?? true ? 'Email Kantor harus diisi' : null,
+                decoration: InputDecoration(
+                  labelText: 'Email Kantor (Opsional)',
+                  helperText: 'Masukkan email yang valid. (Jika ada) ',
+                  helperStyle: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
               ),
               SizedBox(height: 10),
               TextFormField(
                 controller: _alamatKantorController,
-                decoration: InputDecoration(labelText: 'Alamat Kantor'),
-                validator: (value) =>
-                    value?.isEmpty ?? true ? 'Alamat Kantor harus diisi' : null,
+                decoration: InputDecoration(
+                  labelText: 'Alamat Kantor (Opsional)',
+                  helperText: 'Masukkan alamat kantor yang valid. (Jika ada) ',
+                  helperStyle: TextStyle(fontSize: 12, color: Colors.grey),
+                ),
               ),
               SizedBox(height: 10),
               TextFormField(
@@ -232,7 +236,7 @@ class _TambahLowonganState extends State<TambahLowongan> {
               TextFormField(
                 controller: _whatsappController,
                 decoration: InputDecoration(
-                  labelText: 'Nomor WhatsApp',
+                  labelText: 'Nomor WhatsApp (Opsional)',
                   helperText: 'Nomor harus diawali dengan +62 dan hanya angka.',
                   helperStyle: TextStyle(fontSize: 12, color: Colors.grey),
                 ),

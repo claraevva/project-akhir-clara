@@ -364,34 +364,42 @@ class _HomePageUserState extends State<HomePageUser> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            _launchEmail(
-                                                _filteredLowongan[index].email);
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: red,
+                                        if (_filteredLowongan[index]
+                                            .email
+                                            .isNotEmpty)
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              _launchEmail(
+                                                  _filteredLowongan[index]
+                                                      .email);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: red,
+                                            ),
+                                            child: Text(
+                                              'Kirim Berkas',
+                                              style: TextStyle(color: white),
+                                            ),
                                           ),
-                                          child: Text(
-                                            'Kirim Berkas',
-                                            style: TextStyle(color: white),
-                                          ),
-                                        ),
                                         SizedBox(width: 10),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            _launchMaps(_filteredLowongan[index]
-                                                .alamatKantor);
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.yellow,
+                                        if (_filteredLowongan[index]
+                                            .alamatKantor
+                                            .isNotEmpty)
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              _launchMaps(
+                                                  _filteredLowongan[index]
+                                                      .alamatKantor);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.yellow,
+                                            ),
+                                            child: Text(
+                                              'Lihat Lokasi',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                           ),
-                                          child: Text(
-                                            'Lihat Lokasi',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
                                       ],
                                     ),
                                     SizedBox(height: 10),

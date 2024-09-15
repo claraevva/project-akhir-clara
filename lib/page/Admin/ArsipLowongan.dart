@@ -78,6 +78,20 @@ class _ArsipLowonganState extends State<ArsipLowongan> {
     }
   }
 
+  void _launchMaps(String alamatKantor) async {
+    final url = 'https://www.google.com/maps/search/?api=1&query=$alamatKantor';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
+
+  void _launchEmail(String email) async {
+    final url = 'mailto:$email';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,35 +193,42 @@ class _ArsipLowonganState extends State<ArsipLowongan> {
                                             'Catatan:\n' +
                                                 _lowongan[index].catatan,
                                             maxLines: null),
-                                        GestureDetector(
-                                          onTap: () {
-                                            launch(
-                                                'mailto:${_lowongan[index].email}');
-                                          },
-                                          child: Text(
-                                            'Email: ' + _lowongan[index].email,
-                                            style: TextStyle(
-                                              color: red,
-                                              decoration:
-                                                  TextDecoration.underline,
+                                        if (_lowongan[index].email.isNotEmpty)
+                                          GestureDetector(
+                                            onTap: () {
+                                              _launchEmail(
+                                                _lowongan[index].email,
+                                              );
+                                            },
+                                            child: Text(
+                                              'Email: ' +
+                                                  _lowongan[index].email,
+                                              style: TextStyle(
+                                                color: red,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            launch(
-                                                'https://www.google.com/maps/search/?api=1&query=${_lowongan[index].alamatKantor}');
-                                          },
-                                          child: Text(
-                                            'Alamat: ' +
+                                        if (_lowongan[index]
+                                            .alamatKantor
+                                            .isNotEmpty)
+                                          GestureDetector(
+                                            onTap: () {
+                                              _launchMaps(
                                                 _lowongan[index].alamatKantor,
-                                            style: TextStyle(
-                                              color: darkBlue,
-                                              decoration:
-                                                  TextDecoration.underline,
+                                              );
+                                            },
+                                            child: Text(
+                                              'Alamat: ' +
+                                                  _lowongan[index].alamatKantor,
+                                              style: TextStyle(
+                                                color: darkBlue,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
                                             ),
                                           ),
-                                        ),
                                         if (_lowongan[index]
                                             .whatsapp
                                             .isNotEmpty)

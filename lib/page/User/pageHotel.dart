@@ -99,6 +99,15 @@ class _HotelState extends State<Hotel> {
           bool hasWhatsapp =
               whatsapp != null && whatsapp.isNotEmpty && whatsapp != "null";
 
+          String? email = snapshot.child("email").value as String?;
+          bool hasEmail = email != null && email.isNotEmpty && email != "null";
+
+          String? alamatKantor =
+              snapshot.child("alamatKantor").value as String?;
+          bool hasAlamat = alamatKantor != null &&
+              alamatKantor.isNotEmpty &&
+              alamatKantor != "null";
+
           return Card(
             elevation: 5,
             margin: EdgeInsets.all(10),
@@ -171,35 +180,33 @@ class _HotelState extends State<Hotel> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                _launchEmail(
-                                    snapshot.child("email").value.toString());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: red,
+                            if (hasEmail)
+                              ElevatedButton(
+                                onPressed: () {
+                                  _launchEmail(email!);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: red,
+                                ),
+                                child: Text(
+                                  'Kirim Berkas',
+                                  style: TextStyle(color: white),
+                                ),
                               ),
-                              child: Text(
-                                'Kirim Berkas',
-                                style: TextStyle(color: white),
-                              ),
-                            ),
                             SizedBox(width: 10),
-                            ElevatedButton(
-                              onPressed: () {
-                                _launchMaps(snapshot
-                                    .child("alamatKantor")
-                                    .value
-                                    .toString());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.yellow,
+                            if (hasAlamat)
+                              ElevatedButton(
+                                onPressed: () {
+                                  _launchMaps(alamatKantor!);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.yellow,
+                                ),
+                                child: Text(
+                                  'Lihat Lokasi',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                              child: Text(
-                                'Lihat Lokasi',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
                           ],
                         ),
                         SizedBox(height: 10),
